@@ -42,7 +42,7 @@ REM Listar productos
 curl.exe http://localhost:8080/products
 
 REM Crear producto
-curl.exe -X POST http://localhost:8080/products -H "Content-Type: application/json" -d "{\"name\":\"Laptop\",\"price\":1299.99,\"stock\":10}"
+curl.exe -X POST http://localhost:8080/products -H "Content-Type: application/json" -d "{""name"":""Laptop"",""price"":1299.99,""stock"":10}"
 
 REM Obtener producto por ID
 curl.exe http://localhost:8080/products/1

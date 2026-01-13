@@ -53,7 +53,7 @@ REM Listar pedidos
 curl.exe http://localhost:8081/orders
 
 REM Crear pedido
-curl.exe -X POST http://localhost:8081/orders -H "Content-Type: application/json" -d "{\"userId\":1,\"items\":[{\"productId\":1,\"quantity\":2}]}"
+curl.exe -X POST http://localhost:8081/orders -H "Content-Type: application/json" -d "{""userId"":1,""items"":[{""productId"":1,""quantity"":2}]}"
 
 REM Obtener pedido por ID
 curl.exe http://localhost:8081/orders/1
