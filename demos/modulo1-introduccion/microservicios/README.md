@@ -58,12 +58,24 @@ Ver los README de cada servicio:
 
 ## Verificar Servicios
 
+### Linux / macOS
+
 ```bash
 # ProductService
 curl http://localhost:8080/products
 
 # OrderService
 curl http://localhost:8081/orders
+```
+
+### Windows
+
+```cmd
+REM ProductService
+curl.exe http://localhost:8080/products
+
+REM OrderService
+curl.exe http://localhost:8081/orders
 ```
 
 ## Notas

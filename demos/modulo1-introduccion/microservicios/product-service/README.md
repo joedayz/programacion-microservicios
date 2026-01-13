@@ -20,6 +20,8 @@ java -jar target/product-service-1.0.0.jar
 
 ## Ejemplos
 
+### Linux / macOS
+
 ```bash
 # Listar productos
 curl http://localhost:8080/products
@@ -31,6 +33,34 @@ curl -X POST http://localhost:8080/products \
 
 # Obtener producto por ID
 curl http://localhost:8080/products/1
+```
+
+### Windows (cmd.exe)
+
+```cmd
+REM Listar productos
+curl.exe http://localhost:8080/products
+
+REM Crear producto
+curl.exe -X POST http://localhost:8080/products -H "Content-Type: application/json" -d "{\"name\":\"Laptop\",\"price\":1299.99,\"stock\":10}"
+
+REM Obtener producto por ID
+curl.exe http://localhost:8080/products/1
+```
+
+### Windows (PowerShell)
+
+```powershell
+# Listar productos
+curl.exe http://localhost:8080/products
+
+# Crear producto
+curl.exe -X POST http://localhost:8080/products `
+  -H "Content-Type: application/json" `
+  -d '{\"name\":\"Laptop\",\"price\":1299.99,\"stock\":10}'
+
+# Obtener producto por ID
+curl.exe http://localhost:8080/products/1
 ```
 
 ## Docker / Podman

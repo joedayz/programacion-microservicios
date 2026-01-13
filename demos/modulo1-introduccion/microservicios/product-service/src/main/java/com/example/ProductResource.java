@@ -5,20 +5,20 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.util.List;
 
-@Path("/products")
+@Path("/products")      // http://localhost:8080/products
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class ProductResource {
     
     private final ProductService productService = ProductService.getInstance();
     
-    @GET
+    @GET  //GET http://localhost:8080/products
     public List<Product> getAll() {
         return productService.findAll();
     }
     
     @GET
-    @Path("/{id}")
+    @Path("/{id}")  //http://localhost:8080/products/99999
     public Response getById(@PathParam("id") Long id) {
         try {
             Product product = productService.findById(id);
@@ -30,7 +30,7 @@ public class ProductResource {
         }
     }
     
-    @POST
+    @POST // POST http://localhost:8080/products
     public Response create(Product product) {
         Product created = productService.create(product);
         return Response.status(Response.Status.CREATED).entity(created).build();
