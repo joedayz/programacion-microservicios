@@ -18,7 +18,7 @@ public class ProductResource {
     }
     
     @GET
-    @Path("/{id}")  //http://localhost:8080/products/99999
+    @Path("/{id}")  //http://localhost:8080/products/7
     public Response getById(@PathParam("id") Long id) {
         try {
             Product product = productService.findById(id);
