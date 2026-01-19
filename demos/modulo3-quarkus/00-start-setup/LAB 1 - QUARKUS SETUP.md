@@ -27,37 +27,40 @@ New-Item -ItemType Directory -Name start-setup
 ### Linux/Mac
 
 ```bash
-mvn io.quarkus:quarkus-maven-plugin:3.2.9.Final:create \
+mvn io.quarkus.platform:quarkus-maven-plugin:create \
   -DprojectGroupId=com.bcp.training \
   -DprojectArtifactId=tenther \
-  -DplatformVersion=3.2.9.Final \
-  -Dextensions="io.quarkus:quarkus-rest"
+  -DclassName="com.bcp.training.GreetingResource" \
+  -Dpath="/hello" \
+  -Dextensions="io.quarkus:quarkus-resteasy-reactive"
 ```
 
 ### Windows (CMD)
 
 ```cmd
-mvn io.quarkus:quarkus-maven-plugin:3.2.9.Final:create ^
+mvn io.quarkus.platform:quarkus-maven-plugin:create ^
   -DprojectGroupId=com.bcp.training ^
   -DprojectArtifactId=tenther ^
-  -DplatformVersion=3.2.9.Final ^
-  -Dextensions="io.quarkus:quarkus-rest"
+  -DclassName="com.bcp.training.GreetingResource" ^
+  -Dpath="/hello" ^
+  -Dextensions="io.quarkus:quarkus-resteasy-reactive"
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-mvn io.quarkus:quarkus-maven-plugin:3.2.9.Final:create `
+mvn io.quarkus.platform:quarkus-maven-plugin:create `
   -DprojectGroupId=com.bcp.training `
   -DprojectArtifactId=tenther `
-  -DplatformVersion=3.2.9.Final `
-  -Dextensions="io.quarkus:quarkus-rest"
+  -DclassName="com.bcp.training.GreetingResource" `
+  -Dpath="/hello" `
+  -Dextensions="io.quarkus:quarkus-resteasy-reactive"
 ```
 
 **Alternativa (una sola línea para Windows):**
 
 ```cmd
-mvn io.quarkus:quarkus-maven-plugin:3.2.9.Final:create -DprojectGroupId=com.bcp.training -DprojectArtifactId=tenther -DplatformVersion=3.2.9.Final -Dextensions="io.quarkus:quarkus-rest"
+mvn io.quarkus.platform:quarkus-maven-plugin:create -DprojectGroupId=com.bcp.training -DprojectArtifactId=tenther -DclassName="com.bcp.training.GreetingResource" -Dpath="/hello" -Dextensions="io.quarkus:quarkus-resteasy-reactive"
 ```
 
 ## 3. Navegar al directorio del proyecto
@@ -110,7 +113,7 @@ Invoke-WebRequest http://localhost:8080/hello
 **Respuesta esperada:**
 
 ```
-Hello from Quarkus REST
+Hello from RESTEasy Reactive
 ```
 
 ## 6. Cambiar el archivo de ejemplo `com.bcp.training.GreetingResource`
@@ -123,7 +126,7 @@ Hello from Quarkus REST
 @GET
 @Produces(MediaType.TEXT_PLAIN)
 public String hello() {
-    return "Hello from Quarkus REST";
+    return "Hello from RESTEasy Reactive";
 }
 ```
 
