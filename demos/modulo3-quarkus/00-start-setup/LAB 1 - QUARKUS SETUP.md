@@ -31,8 +31,7 @@ mvn io.quarkus.platform:quarkus-maven-plugin:create \
   -DprojectGroupId=com.bcp.training \
   -DprojectArtifactId=tenther \
   -DclassName="com.bcp.training.GreetingResource" \
-  -Dpath="/hello" \
-  -Dextensions="io.quarkus:quarkus-resteasy-reactive"
+  -Dpath="/hello"
 ```
 
 ### Windows (CMD)
@@ -42,8 +41,7 @@ mvn io.quarkus.platform:quarkus-maven-plugin:create ^
   -DprojectGroupId=com.bcp.training ^
   -DprojectArtifactId=tenther ^
   -DclassName="com.bcp.training.GreetingResource" ^
-  -Dpath="/hello" ^
-  -Dextensions="io.quarkus:quarkus-resteasy-reactive"
+  -Dpath="/hello"
 ```
 
 ### Windows (PowerShell)
@@ -53,14 +51,13 @@ mvn io.quarkus.platform:quarkus-maven-plugin:create `
   -DprojectGroupId=com.bcp.training `
   -DprojectArtifactId=tenther `
   -DclassName="com.bcp.training.GreetingResource" `
-  -Dpath="/hello" `
-  -Dextensions="io.quarkus:quarkus-resteasy-reactive"
+  -Dpath="/hello"
 ```
 
 **Alternativa (una sola línea para Windows):**
 
 ```cmd
-mvn io.quarkus.platform:quarkus-maven-plugin:create -DprojectGroupId=com.bcp.training -DprojectArtifactId=tenther -DclassName="com.bcp.training.GreetingResource" -Dpath="/hello" -Dextensions="io.quarkus:quarkus-resteasy-reactive"
+mvn io.quarkus.platform:quarkus-maven-plugin:create -DprojectGroupId=com.bcp.training -DprojectArtifactId=tenther -DclassName="com.bcp.training.GreetingResource" -Dpath="/hello"
 ```
 
 ## 3. Navegar al directorio del proyecto
