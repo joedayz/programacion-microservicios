@@ -31,7 +31,7 @@ mvn io.quarkus:quarkus-maven-plugin:3.2.9.Final:create \
   -DprojectGroupId=com.bcp.training \
   -DprojectArtifactId=tenther \
   -DplatformVersion=3.2.9.Final \
-  -Dextensions="quarkus-rest"
+  -Dextensions="io.quarkus:quarkus-rest"
 ```
 
 ### Windows (CMD)
@@ -41,7 +41,7 @@ mvn io.quarkus:quarkus-maven-plugin:3.2.9.Final:create ^
   -DprojectGroupId=com.bcp.training ^
   -DprojectArtifactId=tenther ^
   -DplatformVersion=3.2.9.Final ^
-  -Dextensions="quarkus-rest"
+  -Dextensions="io.quarkus:quarkus-rest"
 ```
 
 ### Windows (PowerShell)
@@ -51,13 +51,13 @@ mvn io.quarkus:quarkus-maven-plugin:3.2.9.Final:create `
   -DprojectGroupId=com.bcp.training `
   -DprojectArtifactId=tenther `
   -DplatformVersion=3.2.9.Final `
-  -Dextensions="quarkus-rest"
+  -Dextensions="io.quarkus:quarkus-rest"
 ```
 
 **Alternativa (una sola línea para Windows):**
 
 ```cmd
-mvn io.quarkus:quarkus-maven-plugin:3.2.9.Final:create -DprojectGroupId=com.bcp.training -DprojectArtifactId=tenther -DplatformVersion=3.2.9.Final -Dextensions="quarkus-rest"
+mvn io.quarkus:quarkus-maven-plugin:3.2.9.Final:create -DprojectGroupId=com.bcp.training -DprojectArtifactId=tenther -DplatformVersion=3.2.9.Final -Dextensions="io.quarkus:quarkus-rest"
 ```
 
 ## 3. Navegar al directorio del proyecto
