@@ -67,11 +67,9 @@ El archivo `application.properties` está configurado con:
 ```properties
 quarkus.http.access-log.enabled=true
 quarkus.rest-client."com.bcp.training.PricesService".url=http://localhost:5500/
-
-quarkus.virtual-threads.enabled=true
 ```
 
-**Nota:** Esta configuración limita los hilos para fines de demostración del problema de bloqueo.
+**Nota:** En Quarkus 3 no es necesario habilitar Virtual Threads por configuración.
 
 ## Ejecución del Laboratorio
 
@@ -134,25 +132,15 @@ INFO [io.qua.htt.access-log] (executor-thread-0) ... 26/Jan/2023:14:08:30
 INFO [io.qua.htt.access-log] (executor-thread-0) ... 26/Jan/2023:14:08:32
 ```
 
-### Paso 2: Agregar la extensión de Virtual Threads
+#### 1.6. Conclusión del problema
 
-Las dependencias REST ya están incluidas en el `pom.xml`. Agrega la extensión de Virtual Threads:
+Con una carga concurrente, el servicio procesa las solicitudes en serie porque el hilo de trabajo se bloquea en cada llamada al servicio `prices`.
 
-```bash
-mvn quarkus:add-extensions -Dextensions="virtual-threads"
-```
+### Paso 2: Habilitar Virtual Threads con anotaciones
 
-### Paso 3: Habilitar Virtual Threads paso a paso
+En Quarkus 3, basta con usar la anotación `@RunOnVirtualThread`.
 
-#### 3.1. Activar Virtual Threads en configuración
-
-En `application.properties`, agrega:
-
-```properties
-quarkus.virtual-threads.enabled=true
-```
-
-#### 3.2. Ejecutar el endpoint principal en Virtual Threads
+#### 2.1. Ejecutar el endpoint principal en Virtual Threads
 
 Actualiza `ProductsResource.java` para ejecutar en virtual threads usando `@RunOnVirtualThread`:
 
@@ -167,7 +155,7 @@ public ProductPriceHistory getProductPriceHistory(
 }
 ```
 
-#### 3.3. Proteger un endpoint bloqueante largo (opcional)
+#### 2.2. Proteger un endpoint bloqueante largo (opcional)
 
 Aplica la misma anotación en el endpoint de prueba:
 
@@ -185,7 +173,7 @@ public String blocking() {
 }
 ```
 
-#### 3.4. Reiniciar la aplicación
+#### 2.3. Reiniciar la aplicación
 
 Detén la aplicación (presiona `q`) y reinicia:
 
@@ -193,7 +181,7 @@ Detén la aplicación (presiona `q`) y reinicia:
 mvn quarkus:dev
 ```
 
-#### 3.5. Probar el endpoint con Virtual Threads
+#### 2.4. Probar el endpoint con Virtual Threads
 
 **Linux/MacOS/Git Bash:**
 ```bash
@@ -207,7 +195,7 @@ Invoke-RestMethod http://localhost:8080/products/1/priceHistory | ConvertTo-Json
 
 Deberías recibir una respuesta válida sin errores.
 
-#### 3.6. Inspeccionar los logs
+#### 2.5. Inspeccionar los logs
 
 Verifica que el request es atendido por un **virtual thread** (deberías ver un nombre de hilo como `quarkus-virtual-thread-17`):
 
@@ -215,7 +203,7 @@ Verifica que el request es atendido por un **virtual thread** (deberías ver un 
 INFO [io.qua.htt.access-log] (quarkus-virtual-thread-17) ...
 ```
 
-#### 3.7. Ejecutar el benchmark nuevamente
+#### 2.6. Ejecutar el benchmark nuevamente
 
 **Linux/MacOS/Git Bash:**
 ```bash
@@ -231,9 +219,9 @@ time ./benchmark.sh
 
 El tiempo de respuesta usando Virtual Threads procesa los 10 requests mucho más rápido manteniendo el código bloqueante.
 
-### Paso 4: Operaciones bloqueantes largas con Virtual Threads
+### Paso 3: Operaciones bloqueantes largas con Virtual Threads
 
-#### 4.1. Probar el endpoint bloqueante
+#### 3.1. Probar el endpoint bloqueante
 
 El endpoint `/products/blocking` simula una operación que bloquea el hilo por 30 segundos:
 
@@ -249,7 +237,7 @@ curl http://localhost:8080/products/blocking
 
 **Nota:** Ahora no deberías ver un `io.vertx.core.VertxException: Thread blocked` porque el endpoint corre en virtual threads.
 
-#### 4.2. Ejecutar benchmark mientras el endpoint bloqueante está activo
+#### 3.2. Ejecutar benchmark mientras el endpoint bloqueante está activo
 
 Mientras esperas que el endpoint bloqueante responda, abre una nueva terminal y ejecuta el benchmark:
 
@@ -259,7 +247,7 @@ time ./benchmark.sh
 
 **Resultado esperado:** El benchmark debería completarse en ~3 segundos, demostrando que los hilos de plataforma no quedan bloqueados mientras el endpoint usa virtual threads.
 
-#### 4.3. Inspeccionar los logs
+#### 3.3. Inspeccionar los logs
 
 Verifica que los requests a `/products/1/priceHistory` y `/products/blocking` son atendidos por virtual threads:
 
