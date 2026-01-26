@@ -14,7 +14,7 @@
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -47,7 +47,7 @@
     "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/josediaz/Projects/bcp/quarkus-bcp-2025/12-secure-sso-start",
+    "last_opened_file_path": "/Users/josediaz/Projects/JoeDayz/programacion-microservicios/demos/modulo3-quarkus/12-secure-sso-start",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -58,7 +58,23 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecapSpentCounter">
+    <option name="endsOfQuotaMs" value="1770746527509" />
+    <option name="spentUsd" value="0.00532875" />
+  </component>
+  <component name="RecapUselessUpdatesCounter">
+    <option name="suspendCountdown" value="9" />
+  </component>
   <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
     <configuration name="expense-restfult-service" type="QuarkusRunConfigurationType" factoryName="Quarkus" nameIsGenerated="true">
       <module name="expense-restfult-service" />
       <QsMavenRunConfiguration>
@@ -116,6 +132,7 @@
       <workItem from="1766503912157" duration="1439000" />
       <workItem from="1766505696459" duration="5000" />
       <workItem from="1769289504011" duration="660000" />
+      <workItem from="1769434196693" duration="2683000" />
     </task>
     <servers />
   </component>
