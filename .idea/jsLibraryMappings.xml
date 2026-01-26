@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaScriptLibraryMappings">
+    <excludedPredefinedLibrary name="programacion-microservicios/demos/modulo3-quarkus/13-secure-review-start/quarkus-conference/speaker-dashboard/node_modules" />
+  </component>
+</project>
