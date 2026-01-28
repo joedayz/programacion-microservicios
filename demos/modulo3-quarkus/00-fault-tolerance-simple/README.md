@@ -11,9 +11,11 @@ mvn quarkus:dev
 ### Probar
 
 ```bash
-curl http://localhost:8080/monitor
+curl --max-time 5 http://localhost:8080/monitor/ping
+curl --max-time 5 http://localhost:8080/monitor
 ```
 
 Comportamiento esperado:
-- Primeras llamadas: `DEGRADED ...` por el fallback.
+- `/monitor/ping` responde rápido con `pong`.
+- Primeras llamadas a `/monitor`: `DEGRADED ...` por el fallback.
 - Luego: `OK ...` cuando el servicio deja de fallar.
