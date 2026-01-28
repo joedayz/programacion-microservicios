@@ -11,7 +11,11 @@ services:
     volumes:
       - ./realm.json:/opt/keycloak/data/import/realm.json
   h2:
+<<<<<<< HEAD
     image: oscarfonts/h2
+=======
+    image: docker.io/thomseno/h2:2.3.232
+>>>>>>> f073a1d5 (usando h2:2.3.232)
     container_name: h2
     ports:
       - "9092:9092"

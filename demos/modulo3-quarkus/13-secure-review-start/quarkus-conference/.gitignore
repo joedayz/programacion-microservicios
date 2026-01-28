@@ -1,3 +1,9 @@
 .idea
 .idea/misc.xml
+<<<<<<< HEAD
 .idea/modules.xml
+=======
+.idea/modules.xml
+
+node_modules/
+>>>>>>> f073a1d5 (usando h2:2.3.232)
