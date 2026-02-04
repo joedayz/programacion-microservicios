@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Passenger} from '../../models/passsenger.interface';
 import {PassengerDetailComponent} from '../../components/passengrer-detail/passenger-detail.component';
@@ -27,13 +27,17 @@ export class PassengerDashboardComponent implements OnInit {
 
   passengers: Passenger[] = [];
 
-  constructor(private passengerService: PassengerDashboardService) {
-
-  }
+  constructor(
+    private passengerService: PassengerDashboardService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
     this.passengerService.getPassengers()
-      .subscribe(passengers => this.passengers = passengers);
+      .subscribe(passengers => {
+        this.passengers = passengers;
+        this.cdr.detectChanges();
+      });
   }
 
   protected handleEdit(event: Passenger) {
