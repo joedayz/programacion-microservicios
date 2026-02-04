@@ -70,14 +70,4 @@ h4 {
   font-weight: 300;
   margin: 0;
 }
-.status {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  margin-right: 8px;
-  background: #ccc;
-}
 
-.checked-in { background: #2ecc71; }   /* verde */
-.checked-out { background: #e74c3c; }  /* rojo */
