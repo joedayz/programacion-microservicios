@@ -30,11 +30,16 @@ a {
   color: #9f72e6;
   text-decoration: none;
 }
+a:hover {
+  cursor: pointer;
+}
 input,
 button {
   outline: 0;
 }
-input {
+input[type=text],
+input[type=email],
+input[type=number] {
   border: none;
   background: #fff;
   font-size: 13px;
@@ -43,7 +48,8 @@ input {
   box-shadow: 1px 1px 3px 1px #ccc;
   border: 1px solid #eee;
 }
-button {
+button,
+.button {
   cursor: pointer;
   background: #9f72e6;
   border: 0;
@@ -51,6 +57,10 @@ button {
   padding: 5px 10px;
   text-align: center;
   color: #fff;
+}
+button:disabled {
+  cursor: not-allowed;
+  background: #b598e4;
 }
 p {
   margin: 5px 0;
@@ -71,3 +81,22 @@ h4 {
   margin: 0;
 }
 
+
+.nav {
+  margin: 0 0 10px;
+  padding: 0 0 20px;
+  border-bottom: 1px solid #dce5f2;
+}
+
+.nav a {
+  background: #3a4250;
+  color: #fff;
+  padding: 4px 10px;
+  margin: 0 2px;
+  border-radius: 2px;
+}
+
+.nav a.active {
+  color: #b690f1;
+  background: #363c48;
+}

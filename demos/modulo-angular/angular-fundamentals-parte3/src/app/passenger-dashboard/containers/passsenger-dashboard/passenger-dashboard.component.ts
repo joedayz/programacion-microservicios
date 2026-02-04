@@ -1,62 +1,58 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Passenger} from '../../models/passsenger.interface';
+import {PassengerDetailComponent} from '../../components/passengrer-detail/passenger-detail.component';
+import {PassengerCountComponent} from '../../components/passenger-count/passenger-count.component';
+import {PassengerDashboardService} from '../../services/passenger-dashboard.service';
 
 
 @Component({
   selector: 'passenger-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, PassengerDetailComponent, PassengerCountComponent],
   template: `
     <div class="app">
 
-      <h3>Airline Passengers</h3>
-      <ul>
-        @for (passenger of passengers; track passenger.id; let i = $index) {
-          <li>
-                    <span class="status"
-                          [class.checked-in]="passenger.checkedIn"
-                          [class.checked-out]="!passenger.checkedIn">
-                    </span>
-            {{ i }} : {{ passenger.fullname }}
-
-            <p>{{ passenger | json }}</p>
-
-            <div class="date">
-              Check in date:
-              {{ passenger.checkInDate ? (passenger.checkInDate | date: 'yMMMMd' | uppercase) : 'Not checked in yet' }}
-            </div>
-            <div class="children">
-              Children: {{ passenger.children?.length || 0 }}
-            </div>
-          </li>
-
-        }
-
-      </ul>
-
+      <passenger-count [items]="passengers"></passenger-count>
+      @for (passenger of passengers; track passenger.id) {
+        <passenger-detail [detail]="passenger"
+                          (edit)="handleEdit($event)"
+                          (remove)="handleRemove($event)"
+        ></passenger-detail>
+      }
     </div>
-  `,
-  styleUrl: './passenger-dashboard.component.css'
+  `
 })
-export class PassengerDashboardComponent implements OnInit{
+export class PassengerDashboardComponent implements OnInit {
 
   passengers: Passenger[] = [];
 
-  constructor() {
-    console.log('Constructor es para inyeccion de dependencias');
+  constructor(private passengerService: PassengerDashboardService) {
+
   }
 
   ngOnInit() {
-    console.log('Inicializacion de componente');
-    this.passengers = [
-      {id: 1, fullname: 'Stephen', checkedIn: true, checkInDate: 1490742000000, children: null},
-      {id: 2, fullname: 'Rose', checkedIn: false, checkInDate: null, children: [{name: 'Ted', age: 12},{name: 'Chloe', age: 7}]},
-      {id: 3, fullname: 'James', checkedIn: true, checkInDate: 1491606000000, children:null},
-      {id: 4, fullname: 'Louise', checkedIn: true, checkInDate: 1488412800000, children: [{name: 'Jessica', age: 1}]},
-      {id: 5, fullname: 'Tina', checkedIn: false, checkInDate: null, children: null},
-    ];
+    this.passengerService.getPassengers()
+      .subscribe(passengers => this.passengers = passengers);
+  }
+
+  protected handleEdit(event: Passenger) {
+    // this.passengers = this.passengers.map(passenger =>
+    //   passenger.id === event.id ? { ...passenger, ...event } : passenger
+    // );
+    this.passengerService.updatePassenger(event).subscribe(
+      () => this.passengers = this.passengers.map(passenger =>
+        passenger.id === event.id ? {...passenger, ...event} : passenger
+      )
+    );
   }
 
 
+  protected handleRemove(passenger: Passenger) {
+    // console.log('Remove : ' + passenger.fullname);
+    // this.passengers = this.passengers.filter(p => p.id !== passenger.id);
+    this.passengerService.removePassenger(passenger).subscribe(
+      () =>
+        this.passengers = this.passengers.filter(p => p.id !== passenger.id));
+  }
 }
