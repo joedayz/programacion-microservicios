@@ -6,6 +6,7 @@ import {forkJoin} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {CurrencyPipe, JsonPipe} from '@angular/common';
 import {StockCounterComponent} from '../components/stock-counter/stock-counter.component';
+import {StockSelectorComponent} from '../components/stock-selector/stock-selector.component';
 
 
 @Component({
@@ -26,27 +27,7 @@ import {StockCounterComponent} from '../components/stock-counter/stock-counter.c
 
           <!-- selector begin -->
 
-          <div class="stock-selector">
-            <div formGroupName="selector">
-              <select formControlName="product_id">
-                <option value="">Select stock</option>
-
-                @for (product of products; track product.id) {
-                  <option [value]="product.id">
-                    {{ product.name }}
-                  </option>
-                }
-              </select>
-              <!-- selector end -->
-              <!-- counter begin -->
-                <stock-counter [step]=10 [min]="10" [max]="1000" formControlName="quantity"></stock-counter>
-
-              <!-- counter end -->
-              <button type="button" (click)="onAdd()">
-                Add Stock
-              </button>
-            </div>
-          </div>
+          <stock-selector [parent]="form" [products]="products" (added)="addStock($event)"></stock-selector>
 
           <!-- selector end -->
 
@@ -106,7 +87,7 @@ import {StockCounterComponent} from '../components/stock-counter/stock-counter.c
     imports: [
       ReactiveFormsModule,
       CurrencyPipe,
-      StockCounterComponent
+      StockSelectorComponent
     ]
   }
 )
@@ -165,7 +146,7 @@ export class StockInventoryComponent implements OnInit {
     cart.forEach(item => this.addStock(item))
   }
 
-  private addStock(item: Item) {
+  protected addStock(item: Item) {
     (this.form.get('stock') as FormArray).push(this.createStock(item));
   }
 
