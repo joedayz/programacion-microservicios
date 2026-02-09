@@ -5,7 +5,7 @@ import {Branch, Item, Product} from '../models/product.interface';
 
 const API_URL:string = 'http://localhost:3000';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class StockInventoryService {
 
 
