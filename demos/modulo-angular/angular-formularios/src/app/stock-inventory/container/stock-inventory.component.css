@@ -16,46 +16,7 @@
   padding: 6px 10px;
   margin-top: -1px;
 }
-.stock-counter {
-  background: rgba(0, 0, 0, 0.05);
-  border-radius: 3px;
-  overflow: hidden;
-}
 
-.stock-counter.focused {
-  box-shadow: 0 1px 1px rgba(0,0,0,.3);
-}
-
-.stock-counter > div > div {
-  display: flex;
-  align-items: center;
-}
-
-.stock-counter > div > div > div {
-  display: flex;
-  flex-direction: column;
-}
-
-.stock-counter p {
-  font-size: 16px;
-  font-weight: 400;
-  text-align: center;
-  width: 50px;
-}
-
-.stock-counter button {
-  padding: 3px 7px;
-  border-radius: 0;
-  line-height: 1;
-  background: #9E61C8;
-  color: #fff;
-  font-weight: 500;
-}
-
-.stock-counter button:disabled {
-  background: rgba(0, 0, 0, 0.1);
-  color: rgba(0, 0, 0, 0.4);
-}
 .stock-product__content {
   display: flex;
   justify-content: space-between;

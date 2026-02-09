@@ -5,6 +5,7 @@ import {StockInventoryService} from '../services/stock-inventory.service';
 import {forkJoin} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {CurrencyPipe, JsonPipe} from '@angular/common';
+import {StockCounterComponent} from '../components/stock-counter/stock-counter.component';
 
 
 @Component({
@@ -38,24 +39,7 @@ import {CurrencyPipe, JsonPipe} from '@angular/common';
               </select>
               <!-- selector end -->
               <!-- counter begin -->
-              <div class="stock-counter" [class.focused]="focus" >
-                <div>
-                  <input
-                    type="number"
-                    step="10"
-                    min="10"
-                    max="1000"
-                    formControlName="quantity">
-                  <div>
-                    <button type="button" (click)="increment()" [disabled]="value==max">
-                      +
-                    </button>
-                    <button type="button" (click)="decrement()" [disabled]="value==min">
-                      -
-                    </button>
-                  </div>
-                </div>
-              </div>
+                <stock-counter [step]=10 [min]="10" [max]="1000" formControlName="quantity"></stock-counter>
 
               <!-- counter end -->
               <button type="button" (click)="onAdd()">
@@ -121,7 +105,8 @@ import {CurrencyPipe, JsonPipe} from '@angular/common';
     `,
     imports: [
       ReactiveFormsModule,
-      CurrencyPipe
+      CurrencyPipe,
+      StockCounterComponent
     ]
   }
 )
@@ -137,15 +122,7 @@ export class StockInventoryComponent implements OnInit {
   private fb = inject(FormBuilder);
   private stockService = inject(StockInventoryService);
 
-  // counter variables begin
 
-  focus: boolean = false;
-  value: number = 10;
-  min: number = 10;
-  max: number = 1000;
-
-
-  // counter variables end
 
 
   ngOnInit(): void {
@@ -211,20 +188,10 @@ export class StockInventoryComponent implements OnInit {
 
   // selector methods end
 
-  // counter methods begin
 
-  protected increment() {
-
-  }
-
-  protected decrement() {
-
-  }
   protected onAdd() {
 
   }
-  // counter methods end
-
 
   // products methods begin
 
