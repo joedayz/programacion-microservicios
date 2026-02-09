@@ -1,0 +1,78 @@
+.stock-inventory {
+  border-bottom: 1px solid #ccc;
+  margin: 0 0 20px;
+  padding: 0 0 20px;
+  display: block;
+}
+
+.stock-inventory .error {
+  background: #B52D30;
+  color: #fff;
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  border-radius: 0 0 3px 3px;
+  line-height: 1;
+  padding: 6px 10px;
+  margin-top: -1px;
+}
+.stock-counter {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.stock-counter.focused {
+  box-shadow: 0 1px 1px rgba(0,0,0,.3);
+}
+
+.stock-counter > div > div {
+  display: flex;
+  align-items: center;
+}
+
+.stock-counter > div > div > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.stock-counter p {
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+  width: 50px;
+}
+
+.stock-counter button {
+  padding: 3px 7px;
+  border-radius: 0;
+  line-height: 1;
+  background: #9E61C8;
+  color: #fff;
+  font-weight: 500;
+}
+
+.stock-counter button:disabled {
+  background: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.4);
+}
+.stock-product__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.stock-product__content button {
+  flex: 0 0 100px;
+  margin-left: 30px;
+}
+
+.stock-product__content stock-counter {
+  flex: 0 0 50px;
+  margin-left: 30px;
+}
+
+.stock-product__name {
+  flex: 1 0;
+}
