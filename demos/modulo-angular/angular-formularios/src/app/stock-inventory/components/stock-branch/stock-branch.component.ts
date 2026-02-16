@@ -28,6 +28,12 @@ import { FormGroup, ReactiveFormsModule } from "@angular/forms";
                 </div>
             }
 
+            @if(unknown){
+                <div class="error">
+                    Unknow branch, please check the ID
+                </div>
+            }
+
 
             <input type="text" formControlName="code" placeholder="Manager Code">
 
@@ -50,5 +56,10 @@ export class StockBranchComponent {
     get invalid(): boolean {
         const control = this.parent.get('store.branch');
         return !!control && control.hasError('invalidBranch') && control.dirty;
+    }
+
+    get unknown(): boolean {
+        const control = this.parent.get('store.branch');
+        return !!control && control.hasError('unknownBranch') && control.dirty;
     }
 }

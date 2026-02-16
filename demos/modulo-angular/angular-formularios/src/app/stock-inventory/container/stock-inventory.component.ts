@@ -2,7 +2,7 @@ import {Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {Item, Product} from '../models/product.interface';
 import {AbstractControl, FormArray, FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {StockInventoryService} from '../services/stock-inventory.service';
-import {forkJoin} from 'rxjs';
+import {forkJoin, map} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {CurrencyPipe, JsonPipe} from '@angular/common';
 import {StockSelectorComponent} from '../components/stock-selector/stock-selector.component';
@@ -117,7 +117,8 @@ export class StockInventoryComponent implements OnInit {
       branch: ['', [
         Validators.required,
         StockValidators.checkBranch
-      ]],
+      ],
+      this.validateBranch.bind(this)],
       code: ['', Validators.required]
     }),
     selector: this.createStock({}),
@@ -162,16 +163,16 @@ export class StockInventoryComponent implements OnInit {
 
   // branch methods begin
 
+  validateBranch(control:AbstractControl)  {
+     let valor = this.stockService.checkBranchId(control.value)
+      .pipe(
+        map( (res:boolean) => res ? null: { unknownBranch:true })
+      );
+      return valor;
+  }
+
   // branch methods end
 
-  // selector methods begin
-
-  // selector methods end
-
-
-  protected onAdd() {
-
-  }
 
   // products methods begin
 
