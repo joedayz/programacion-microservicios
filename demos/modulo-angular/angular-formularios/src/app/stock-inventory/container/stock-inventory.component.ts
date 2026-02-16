@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit, signal} from '@angular/core';
 import {Item, Product} from '../models/product.interface';
 import {AbstractControl, FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {StockInventoryService} from '../services/stock-inventory.service';
@@ -37,7 +37,7 @@ import { StockProductsComponent } from "../components/stock-products/stock-produ
           <!-- Products end -->
 
           <div class="stock-inventory__price">
-            Total: {{ total | currency:'USD':true }}
+            Total: {{ total() | currency:'USD':'symbol' }}
           </div>
 
           <div class="stock-inventory__buttons">
@@ -66,7 +66,7 @@ import { StockProductsComponent } from "../components/stock-products/stock-produ
 export class StockInventoryComponent implements OnInit {
   products: Product[] = [];
 
-  total: number = 0;
+  total = signal(0);
 
   productMap: Map<number, Product> = new Map();
 
@@ -109,6 +109,16 @@ export class StockInventoryComponent implements OnInit {
       .subscribe(({cart, products}) => {
         this.initProducts(products);
         this.initCart(cart);
+
+        const stockControl = this.form.get('stock');
+        if(stockControl){
+          this.calculateTotal(stockControl.value as Item[]);
+
+          stockControl.valueChanges
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe(value=>this.calculateTotal(value as Item[]));
+        }
+
       });
   }
 
@@ -157,6 +167,13 @@ export class StockInventoryComponent implements OnInit {
 
   // products methods end
 
+  private calculateTotal(value:Item[]){
+    const total = value.reduce( (prev, next)=>{
+      const product = this.productMap.get(next.product_id);
+      return product ? prev + next.quantity * product.price : prev;
+    }, 0);
+    this.total.set(total);
+  }
 
-
+  
 }
