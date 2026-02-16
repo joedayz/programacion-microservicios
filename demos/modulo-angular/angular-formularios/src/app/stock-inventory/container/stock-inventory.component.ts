@@ -5,8 +5,8 @@ import {StockInventoryService} from '../services/stock-inventory.service';
 import {forkJoin} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {CurrencyPipe, JsonPipe} from '@angular/common';
-import {StockCounterComponent} from '../components/stock-counter/stock-counter.component';
 import {StockSelectorComponent} from '../components/stock-selector/stock-selector.component';
+import { StockBranchComponent } from "../components/stock-branch/stock-branch.component";
 
 
 @Component({
@@ -16,14 +16,12 @@ import {StockSelectorComponent} from '../components/stock-selector/stock-selecto
     template: `
       <div class="stock-inventory">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
-          <div formGroupName="store">
+         
 
-            <!-- branch begin -->
-            <input type="text" formControlName="branch" placeholder="Branch ID">
-            <input type="text" formControlName="code" placeholder="Manager Code">
-            <!-- branch end -->
+          <!-- branch begin -->
+          <stock-branch [parent]="form"></stock-branch>
+          <!-- branch end -->
 
-          </div>
 
           <!-- selector begin -->
 
@@ -85,10 +83,11 @@ import {StockSelectorComponent} from '../components/stock-selector/stock-selecto
       </div>
     `,
     imports: [
-      ReactiveFormsModule,
-      CurrencyPipe,
-      StockSelectorComponent
-    ]
+    ReactiveFormsModule,
+    CurrencyPipe,
+    StockSelectorComponent,
+    StockBranchComponent
+]
   }
 )
 export class StockInventoryComponent implements OnInit {
