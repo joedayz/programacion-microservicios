@@ -9,7 +9,7 @@
 ## Requisitos previos
 
 - Node.js 18+ y npm
-- Angular CLI: `npm install -g @angular/cli@19`
+- Angular CLI: `npm install -g @angular/cli`
 - Editor de código (VS Code, etc.)
 
 ---
@@ -41,7 +41,7 @@ npm install chart.js
 
 ### Paso 1.4 – Configurar el tema PrimeNG 19
 
-En PrimeNG 19 el tema se configura por código, no por CSS en `angular.json`.
+En PrimeNG 21 el tema se configura por código, no por CSS en `angular.json`.
 
 1. Abre **`src/app/app.config.ts`**.
 2. Añade los imports necesarios y el proveedor del tema:
@@ -50,7 +50,6 @@ En PrimeNG 19 el tema se configura por código, no por CSS en `angular.json`.
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 import { routes } from './app.routes';
@@ -60,7 +59,6 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(),
-    provideAnimations(),
     providePrimeNG({ theme: { preset: Aura } })
   ]
 };

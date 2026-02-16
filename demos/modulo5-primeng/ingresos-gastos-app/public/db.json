@@ -1,0 +1,60 @@
+{
+  "movimientos": [
+    {
+      "id": 1,
+      "tipo": "ingreso",
+      "descripcion": "Salario",
+      "monto": 3500,
+      "mes": 1,
+      "anio": 2025
+    },
+    {
+      "id": 2,
+      "tipo": "gasto",
+      "descripcion": "Alquiler",
+      "monto": 900,
+      "mes": 1,
+      "anio": 2025
+    },
+    {
+      "id": 3,
+      "tipo": "gasto",
+      "descripcion": "Supermercado",
+      "monto": 320,
+      "mes": 1,
+      "anio": 2025
+    },
+    {
+      "id": 4,
+      "tipo": "ingreso",
+      "descripcion": "Freelance",
+      "monto": 500,
+      "mes": 2,
+      "anio": 2025
+    },
+    {
+      "id": 5,
+      "tipo": "gasto",
+      "descripcion": "Luz",
+      "monto": 85,
+      "mes": 2,
+      "anio": 2025
+    },
+    {
+      "id": 6,
+      "tipo": "ingreso",
+      "descripcion": "Salario",
+      "monto": 3500,
+      "mes": 2,
+      "anio": 2025
+    },
+    {
+      "id": 7,
+      "tipo": "gasto",
+      "descripcion": "Alquiler",
+      "monto": 900,
+      "mes": 2,
+      "anio": 2025
+    }
+  ]
+}
