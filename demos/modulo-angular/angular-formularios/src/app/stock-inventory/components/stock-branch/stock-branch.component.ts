@@ -37,6 +37,12 @@ import { FormGroup, ReactiveFormsModule } from "@angular/forms";
 
             <input type="text" formControlName="code" placeholder="Manager Code">
 
+            @if(required('code')){
+                <div class="error">
+                    Manager Code is required
+                </div>
+            }
+
      </div>
     </div>
     
