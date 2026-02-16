@@ -1,6 +1,6 @@
 import {Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {Item, Product} from '../models/product.interface';
-import {AbstractControl, FormArray, FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
+import {AbstractControl, FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {StockInventoryService} from '../services/stock-inventory.service';
 import {forkJoin, map} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
@@ -8,6 +8,7 @@ import {CurrencyPipe, JsonPipe} from '@angular/common';
 import {StockSelectorComponent} from '../components/stock-selector/stock-selector.component';
 import { StockBranchComponent } from "../components/stock-branch/stock-branch.component";
 import { StockValidators } from './stock-inventory.validators';
+import { StockProductsComponent } from "../components/stock-products/stock-products.component";
 
 
 @Component({
@@ -30,37 +31,8 @@ import { StockValidators } from './stock-inventory.validators';
           <!-- selector end -->
 
           <!-- Product begin -->
-          <div class="stock-product">
-            <div formArrayName="stock">
-
-              @for (item of stocks; let i = $index; track i) {
-                <div>
-                  <div class="stock-product__content" [formGroupName]="i">
-                    <div class="stock-product__name">
-                      {{ getProduct(item.value.product_id)!.name }}
-                    </div>
-                    <div class="stock-product__price">
-                      {{ getProduct(item.value.product_id)!.price  | currency:'USD':true }}
-                    </div>
-
-                    <input
-                      type="number"
-                      step="10"
-                      min="10"
-                      max="1000"
-                      formControlName="quantity">
-
-                    <button
-                      type="button"
-                      (click)="onRemove(item, i)">
-                      Remove
-                    </button>
-                  </div>
-                </div>
-              }
-
-            </div>
-          </div>
+          <stock-products [parent]="form" [map]="productMap" 
+          (removed)="removeStock($event)"></stock-products>
 
           <!-- Products end -->
 
@@ -86,7 +58,8 @@ import { StockValidators } from './stock-inventory.validators';
     ReactiveFormsModule,
     CurrencyPipe,
     StockSelectorComponent,
-    StockBranchComponent
+    StockBranchComponent,
+    StockProductsComponent
 ]
   }
 )
@@ -177,16 +150,11 @@ export class StockInventoryComponent implements OnInit {
 
 
   // products methods begin
+  removeStock( {group, index} : {group:FormGroup, index:number}){
+    const control = this.form.get('stock') as FormArray;
+    control.removeAt(index);
+  }
 
-  get stocks(){
-    return (this.form.get('stock') as FormArray).controls;
-  }
-  protected getProduct(product_id: any) {
-    return this.productMap.get(product_id);
-  }
-  protected onRemove(item: AbstractControl<any>, i: number) {
-
-  }
   // products methods end
 
 
