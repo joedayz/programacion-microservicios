@@ -123,6 +123,8 @@ export class StockInventoryComponent implements OnInit {
     }),
     selector: this.createStock({}),
     stock: this.fb.array([])
+  },{
+    validators: [StockValidators.checkStockExists]
   });
 
   private loadInitialData(): void {

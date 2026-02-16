@@ -24,7 +24,7 @@ import {Product} from '../../models/product.interface';
           <stock-counter [step]=10 [min]="10" [max]="1000" formControlName="quantity"></stock-counter>
 
           <!-- counter end -->
-          <button type="button" (click)="onAdd()" [disabled]="!hasProductSelected()">
+          <button type="button" (click)="onAdd()" [disabled]="!hasProductSelected() || parent.hasError('stockExists')">
             Add Stock
           </button>
         </div>
