@@ -24,7 +24,7 @@ import {Product} from '../../models/product.interface';
           <stock-counter [step]=10 [min]="10" [max]="1000" formControlName="quantity"></stock-counter>
 
           <!-- counter end -->
-          <button type="button" (click)="onAdd()">
+          <button type="button" (click)="onAdd()" [disabled]="!hasProductSelected()">
             Add Stock
           </button>
         </div>
@@ -49,6 +49,12 @@ export class StockSelectorComponent {
 
   @Output()
   added = new EventEmitter<any>();
+
+
+  protected hasProductSelected():boolean{
+    const control = this.parent.get('selector')?.get('product_id')?.value;
+    return control != '' && control !=null;
+  }
 
   protected onAdd() {
     this.added.emit(this.parent.get('selector')?.value);
