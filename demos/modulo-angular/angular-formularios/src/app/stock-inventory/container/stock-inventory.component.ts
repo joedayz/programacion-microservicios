@@ -7,12 +7,12 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {CurrencyPipe, JsonPipe} from '@angular/common';
 import {StockSelectorComponent} from '../components/stock-selector/stock-selector.component';
 import { StockBranchComponent } from "../components/stock-branch/stock-branch.component";
+import { StockValidators } from './stock-inventory.validators';
 
 
 @Component({
     selector: 'stock-inventory',
     standalone: true,
-    styleUrls: ['./stock-inventory.component.css'],
     template: `
       <div class="stock-inventory">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -116,7 +116,7 @@ export class StockInventoryComponent implements OnInit {
     store: this.fb.group({
       branch: ['', [
         Validators.required,
-        Validators.pattern(/^[A-Za-z]{1}\d{3}$/)
+        StockValidators.checkBranch
       ]],
       code: ['', Validators.required]
     }),

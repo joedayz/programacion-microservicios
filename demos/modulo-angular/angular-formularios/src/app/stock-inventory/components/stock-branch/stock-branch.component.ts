@@ -12,7 +12,16 @@ import { FormGroup, ReactiveFormsModule } from "@angular/forms";
     template: `
     <div [formGroup]="parent">
      <div formGroupName="store">
+
             <input type="text" formControlName="branch" placeholder="Branch ID">
+
+
+            @if(required('branch')){
+                <div class="error">
+                    Branch ID is required
+                </div>
+            }
+
             <input type="text" formControlName="code" placeholder="Manager Code">
 
      </div>
@@ -21,6 +30,13 @@ import { FormGroup, ReactiveFormsModule } from "@angular/forms";
     `
 })
 export class StockBranchComponent {
+
     @Input()
     parent!: FormGroup;
+
+
+    required(name: string):boolean {
+        const control = this.parent.get(`store.${name}`);
+        return !!control && control.hasError('required') && control.touched;
+    }
 }
