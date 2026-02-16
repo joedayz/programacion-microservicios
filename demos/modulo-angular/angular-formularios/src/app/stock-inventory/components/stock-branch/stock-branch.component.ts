@@ -22,6 +22,13 @@ import { FormGroup, ReactiveFormsModule } from "@angular/forms";
                 </div>
             }
 
+            @if(invalid){
+                <div class="error">
+                    Invalid branch code: 1 letter, 3 numbers
+                </div>
+            }
+
+
             <input type="text" formControlName="code" placeholder="Manager Code">
 
      </div>
@@ -38,5 +45,10 @@ export class StockBranchComponent {
     required(name: string):boolean {
         const control = this.parent.get(`store.${name}`);
         return !!control && control.hasError('required') && control.touched;
+    }
+
+    get invalid(): boolean {
+        const control = this.parent.get('store.branch');
+        return !!control && control.hasError('invalidBranch') && control.dirty;
     }
 }
