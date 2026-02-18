@@ -91,10 +91,16 @@ export class RegistrarComponent {
       monto: this.monto,
       mes: this.mes,
       anio: this.anio
+    }).subscribe({
+      next: () => {
+        this.messageService.add({severity:'success',
+          summary:'Movimiento registrado', detail:'Se ha registrado el movimiento correctamente.'});
+        this.descripcion = '';
+        this.monto = null;
+      },
+      error: () => {
+        this.messageService.add({severity:'error', summary:'Error', detail:'No se pudo guardar el movimiento.'});
+      }
     });
-    this.messageService.add({severity:'success',
-      summary:'Movimiento registrado', detail:'Se ha registrado el movimiento correctamente.'});
-    this.descripcion = '';
-    this.monto = null;
   }
 }

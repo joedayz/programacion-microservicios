@@ -1,13 +1,14 @@
 import {Injectable} from '@angular/core';
 import {Movimiento, ResumenAnio} from '../models/movimiento.model';
 import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, map, tap} from 'rxjs';
+import {BehaviorSubject, map, Observable, tap} from 'rxjs';
 
+/** API del backend Quarkus - usa /api/movimientos/db para formato compatible con db.json */
+const API_BASE = '/api/movimientos';
 
 interface DbJson {
   movimientos: Movimiento[];
 }
-
 
 @Injectable({providedIn: 'root'})
 export class MovimientosService {
@@ -20,7 +21,7 @@ export class MovimientosService {
   }
 
   private loadFromDb() {
-    this.http.get<DbJson>('/db.json')
+    this.http.get<DbJson>(`${API_BASE}/db`)
       .pipe(
         map((db) => db.movimientos ?? []),
         tap((list) => {
@@ -34,12 +35,13 @@ export class MovimientosService {
     return this.data$.asObservable();
   }
 
-  add(m: Omit<Movimiento, 'id'>): Movimiento{
-    const id = this.movimientos.length ? Math.max(...this.movimientos.map((m) => m.id)) + 1 : 1;
-    const nuevo: Movimiento = {...m, id};
-    this.movimientos.push(nuevo);
-    this.data$.next([...this.movimientos]);
-    return nuevo;
+  add(m: Omit<Movimiento, 'id'>): Observable<Movimiento> {
+    return this.http.post<Movimiento>(API_BASE, m).pipe(
+      tap((nuevo) => {
+        this.movimientos.push(nuevo);
+        this.data$.next([...this.movimientos]);
+      })
+    );
   }
 
   getResumenPorAnio(): ResumenAnio[] {
