@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background: var(--surface-ground);
+  color: var(--text-color);
+}
+
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.card {
+  background: var(--surface-card);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.tipo-ingreso { color: var(--green-600); }
+.tipo-gasto { color: var(--red-600); }
+
+.summary-positive { color: var(--green-600); font-weight: 600; }
+.summary-negative { color: var(--red-600); font-weight: 600; }
