@@ -1,14 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Movimiento, ResumenAnio} from '../models/movimiento.model';
 import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, map, Observable, of, tap} from 'rxjs';
+import {BehaviorSubject, map, Observable, tap} from 'rxjs';
 
-/** Datos desde public/db.json (sin backend). Para usar Quarkus, cambia a API_BASE y descomenta el POST. */
-const DB_JSON = '/db.json';
-
-interface DbJson {
-  movimientos: Movimiento[];
-}
+const API_BASE = 'http://localhost:8080/api';
 
 @Injectable({providedIn: 'root'})
 export class MovimientosService {
@@ -17,13 +12,13 @@ export class MovimientosService {
   private readonly data$ = new BehaviorSubject<Movimiento[]>([]);
 
   constructor(private http: HttpClient) {
-    this.loadFromDb();
+    this.loadFromApi();
   }
 
-  private loadFromDb() {
-    this.http.get<DbJson>(DB_JSON)
+  private loadFromApi() {
+    this.http.get<Movimiento[]>(`${API_BASE}/movimientos`)
       .pipe(
-        map((db) => db.movimientos ?? []),
+        map((list) => list ?? []),
         tap((list) => {
           this.movimientos = list;
           this.data$.next([...this.movimientos]);
@@ -36,13 +31,12 @@ export class MovimientosService {
   }
 
   add(m: Omit<Movimiento, 'id'>): Observable<Movimiento> {
-    const nextId = this.movimientos.length > 0
-      ? Math.max(...this.movimientos.map((x) => x.id)) + 1
-      : 1;
-    const nuevo: Movimiento = { ...m, id: nextId };
-    this.movimientos.push(nuevo);
-    this.data$.next([...this.movimientos]);
-    return of(nuevo);
+    return this.http.post<Movimiento>(`${API_BASE}/movimientos`, m).pipe(
+      tap((nuevo) => {
+        this.movimientos.push(nuevo);
+        this.data$.next([...this.movimientos]);
+      })
+    );
   }
 
   getResumenPorAnio(): ResumenAnio[] {
